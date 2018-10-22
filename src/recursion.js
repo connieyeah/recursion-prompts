@@ -71,33 +71,60 @@ var sumBelow = function(n){
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
- var range = function(x, y)  {
-    var list = [];
- if(x == y || x === undefined || y === undefined){
-  return list;
-}
-  if(x < y){
-  if (y - x === 2) 
-  {
-    return [x + 1];
-  } 
-  else if (y - x ===1){
+//  var range = function(x, y)  {
+//     var list = [];
+
+//   if(x === y || x === undefined || y === undefined){
+//   return list;
+//   }
+
+//   if(x < y) {
+//     if (y - x === 2) {
+//     return [x + 1];
+//   } 
+//   else if (y - x ===1){
+//     return list;
+//   } else {
+//     var list = range(x, y - 1);
+//     list.push(y - 1);
+//     return list;
+//     }
+//   } else {
+//     if(x -y === 2){
+//     return [x -1];
+//     } else {
+//     var list = range(x,y +1);
+//     list.push(y+1);
+//     return list;
+//     }
+//   }
+// };
+
+var range = function (x, y) {
+  var list = [];
+  if (x === y || x === undefined || y === undefined || (y - x === 1)) {
     return list;
   }
+
+  if (x < y) {
+    if (y - x === 2) {
+      return [x + 1];
+    } else {
+    var list = range(x, y-1);
+    list.push(y-1);
+    return list;
+  }
+}
+
   else {
-    var list = range(x, y - 1);
-    list.push(y - 1);
-    return list;
+    if (x - y === 2) {
+      return [x - 1];
+    } else {
+      var list = range(x, y+1);
+      list.push(y+1);
+      return list;
+    }
   }
-} else {
-  if(x -y === 2){
-    return [x -1];
-  } else{
-    var list = range(x,y +1);
-    list.push(y+1);
-    return list;
-  }
-}
 };
 
 // 7. Compute the exponent of a number.
@@ -120,34 +147,48 @@ var exponent = function(base, exp) {
 // powerOfTwo(1); // true
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
+
 var powerOfTwo = function(n) {
   if(n <= 0){
     return false;
   } 
-  else if(n ===0 || n===1){
+  else if(n === 1){
     return true;
   }
   else if(n % 2 === 1){
     return false;
-  } else {
+  } 
+  else {
     return powerOfTwo(n/2);
   }
 };
 
 // 9. Write a function that reverses a string.
+// var reverse = function(string) {
+//   var reversed = ''; 
+//   if(string === ''){
+//     return reversed;
+//   } else {
+//     return reversed + reverse(string.substr(1)) + string.charAt(0);
+//   }
+// };
+
 var reverse = function(string) {
-  var reversed = ''; 
-  if(string === ''){
-    return '';
+  var reversed = '';
+  if (string === '') {
+    return reversed;
   } else {
-    return reversed + reverse(string.substr(1)) + string.charAt(0);
+    return reversed += reverse(string.slice(1)) + string.charAt(0)
   }
 };
 
 // 10. Write a function that determines if a string is a palindrome.
 //check if first char in str is same as last and then continue inwards
+//should include termination condition (string.length%2 === 0) ???  
+
 var palindrome = function(string) {
   string = string.toLowerCase();
+
   if (string.length === 1) {
     return true;
   } 
@@ -171,10 +212,10 @@ var modulo = function(x, y) {
   if(x === y || x === 0){
     return 0;
   }
-  if (x < 0) { //if x is negative
+  if (x < 0) { 
     return -modulo(-x, y);
   }
-  if (y < 0) { //if y is negative
+  if (y < 0) { 
     return modulo(x, -y);
   }
   if (x < y) {
